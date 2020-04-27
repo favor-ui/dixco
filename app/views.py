@@ -86,19 +86,21 @@ def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
     try:
         transactions = mongo.db.transactions_
-        account_number1 = request.json['Account Number']
+        account_number1 = request.json['account_number']
         account_number= int(account_number1)
         if not account_number:
             return jsonify({"Error":"Field can not be blank", "status":0})
-        account_type1 = request.json['Accout Type']
+        
+        account_type1 = request.json['account_type']
         account_type = str(account_type1)
         if not account_type:
             return jsonify({"Error":"Field can not be blank", "status":0})
-        transaction_val1 = request.json['Transaction Value']
+        
+        transaction_val1 = request.json['transaction_value']
         transaction_val = int(transaction_val1)
         if not transaction_val:
             return jsonify({"Error":"Field can not be blank", "status":0})
-        transaction_ref1 = request.json['Transaction Reference']
+        transaction_ref1 = request.json['transaction_ref']
         transaction_ref = str(transaction_ref)
         if not transaction_ref:
             return jsonify({"Error":"Field can not be blank", "status":0})
