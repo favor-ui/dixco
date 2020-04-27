@@ -3,13 +3,13 @@ from config import Config
 from flask_pymongo import PyMongo
 from datetime import datetime, date
 from functools import wraps
-from flask_jwt_extended import JWTManager, jwt_required
+# from flask_jwt_extended import JWTManager, jwt_required
 
 app = Flask(__name__)
 
-jwt = JWTManager(app)
+# jwt = JWTManager(app)
 
-JWT_SECRET_KEY = 'y7938y4GGUOHowfjwupohj'
+# JWT_SECRET_KEY = 'y7938y4GGUOHowfjwupohj'
 
 
 app.config.from_object(Config)

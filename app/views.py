@@ -17,7 +17,7 @@ def home():
 
 
 @app.route('/disco_transaction', methods = ['GET'])
-@jwt_required
+# @jwt_required
 def get_all_transactions():
     """To get one item from the database.its a Get request and We use the databasename.find_one"""
     try:
@@ -40,7 +40,7 @@ def get_all_transactions():
 
 
 @app.route('/disco_transaction/search', methods = ['GET'])
-@jwt_required
+# @jwt_required
 def get_one_disco_tran(transaction_type, token):
     """To get one item from the database.its a Get request and We use the databasename.find_one"""
     try:
@@ -77,7 +77,7 @@ def get_one_disco_tran(transaction_type, token):
 
 
 @app.route('/disco_attendees', methods = ['POST'])
-@jwt_required
+# @jwt_required
 def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
     try:
