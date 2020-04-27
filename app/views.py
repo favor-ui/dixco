@@ -76,7 +76,7 @@ def get_one_disco_tran(transaction_type, token):
         return jsonify({"Message":"Something went wrong Please check"})
 
 
-@app.route('/disco_attendees', methods = ['POST'])
+@app.route('/disco_transaction', methods = ['POST'])
 # @jwt_required
 def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
@@ -99,16 +99,18 @@ def register():
             return jsonify({"Error":"Field can not be blank", "status":0})
 
 
-        r = [{'account_name':'Account Name',
-                        'account_number':'Account Number',
-                        'account_type':'Accout Type',
-                        'transaction_val':'Transaction Value',
-                        'transaction_ref':'Transaction Reference',
-                        'token':'Token'}]
+        r = [{
+            'account_number':'Account Number',
+            'account_type':'Accout Type',
+            'transaction_val':'Transaction Value',
+            'transaction_ref':'Transaction Reference',
+            'token':'Token'
+            }]
         
         reg_id = transactions.insert_many({r})
-                        
-        r = transactions.find_one({'_id':reg_id})
+
+
+        transactions.find_one({'_id':reg_id})
             
         output = ({
                     'account_number':r['Account Number'],
