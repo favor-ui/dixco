@@ -2,3 +2,4 @@
 __pychache
 venv
 secret.py
+requirements copy.txt
