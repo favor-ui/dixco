@@ -153,8 +153,3 @@ def method_not_allowed(error):
             "status": 500
         }
     )
-
-
-
-
-
