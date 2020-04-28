@@ -27,11 +27,11 @@ def get_all_transactions():
 
         for r in transactions.find():
             output.append({
-                        'Account Number':r['account_number'],
-                        'Account Type':r['account_type'],
-                        'Transaction Value':r['transaction_value'],
-                        'Transaction Ref':r['transaction_ref'],
-                        'Token':r['token'
+                        'account_number':r['account_number'],
+                        'account_type':r['account_type'],
+                        'transaction_value':r['transaction_value'],
+                        'transaction_ref':r['transaction_ref'],
+                        'token':r['token'
                         ]})
         
         return jsonify({'result' : output})
@@ -45,55 +45,44 @@ def get_all_transactions():
 # @jwt_required
 def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
-    try:
-        transactions = mongo.db.transactions_
-        request_data = request.get_json()
-        account_number1 = request_data['account_number']
-        account_number= int(account_number1)
-        if not account_number:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        account_type1 = request_data['account_type']
-        account_type = str(account_type1)
-        if not account_type:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        transaction_val1 = request_data['transaction_value']
-        transaction_val = int(transaction_val1)
-        if not transaction_val:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        transaction_ref1 = request_data['transaction_ref']
-        transaction_ref = str(transaction_ref1)
-        if not transaction_ref:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        token1 = request_data['token']
-        token = str(token1)
-        if not token:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        reg_id = transactions.insert_one({'Account Number':'account_number',
-                                    'Account Type':'account_type',
-                                    'Transaction Value':'transaction_value',
-                                    'Transaction Ref':'transaction_ref',
-                                    'Token':'token'})
+# try:
+    transactions = mongo.db.transactions_
+    request_data = request.get_json()
+    account_number1 = request_data['account_number']
+    account_number= int(account_number1)
+    if not account_number:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    account_type1 = request_data['account_type']
+    account_type = str(account_type1)
+    if not account_type:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    transaction_val = request_data['transaction_value']
+    transaction_value = int(transaction_val)
+    if not transaction_value:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    transaction_ref1 = request_data['transaction_ref']
+    transaction_ref = str(transaction_ref1)
+    if not transaction_ref:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    token1 = request_data['token']
+    token = str(token1)
+    if not token:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    reg_id = transactions.insert_one({'account_number':account_number,
+                                'account_type':account_type,
+                                'transaction_value':transaction_value,
+                                'transaction_ref':transaction_ref,
+                                'token':token})
 
-
-        r = transactions.find_one({'_id':reg_id})
-            
-        output = ({
-                    'Account Number':'account_number',
-                    'Account Type':'account_type',
-                    'Transaction Value':'transaction_value',
-                    'Transaction Ref':'transaction_ref',
-                    'Token':'token' 
-                    })
-        
-        return jsonify({'result' : output})
+    return jsonify({"Message": "Transaction has been saved", "status":1})
    
-    except Exception:
-        return jsonify({"Message":"Something went wrong Please check"})
+    # except Exception:
+    #     return jsonify({"Message":"Something went wrong Please check"})
    
 
 
