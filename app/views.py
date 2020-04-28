@@ -17,9 +17,8 @@ def home():
 
 
 @app.route('/disco_transaction', methods = ['GET'])
-# @jwt_required
 def get_all_transactions():
-    """To get one item from the database.its a Get request and We use the databasename.find_one"""
+    """This route gets data from the database by specifying mongo.<dbname>.<collection name>.find_one"""
     try:
         transactions = mongo.db.transactions_
         
@@ -42,9 +41,8 @@ def get_all_transactions():
 
 
 @app.route('/disco_transaction', methods = ['POST'])
-# @jwt_required
 def register():
-    """To add an item to the database. its a post request and we use databasename.insert()"""
+    """This route saves data to database by specifying mongo.<dbname>.<collection name>.insert()"""
     try:
         transactions = mongo.db.transactions_
         request_data = request.get_json()
