@@ -45,45 +45,52 @@ def get_all_transactions():
 # @jwt_required
 def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
-    try:
-        transactions = mongo.db.transactions_
-        request_data = request.get_json()
-        account_number1 = request_data['account_number']
-        account_number= int(account_number1)
-        if not account_number:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        account_type1 = request_data['account_type']
-        account_type = str(account_type1)
-        if not account_type:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        transaction_val = request_data['transaction_value']
-        transaction_value = int(transaction_val)
-        if not transaction_value:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        transaction_ref1 = request_data['transaction_ref']
-        transaction_ref = str(transaction_ref1)
-        if not transaction_ref:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        token1 = request_data['token']
-        token = str(token1)
-        if not token:
-            return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        reg_id = transactions.insert_one({'account_number':account_number,
-                                    'account_type':account_type,
-                                    'transaction_value':transaction_value,
-                                    'transaction_ref':transaction_ref,
-                                    'token':token})
-
-        return jsonify({"Message": "Transaction has been saved", "status":1})
+# try:
+    transactions = mongo.db.transactions_
+    request_data = request.get_json()
+    account_number1 = request_data['account_number']
+    account_number= int(account_number1)
+    if not account_number:
+        return jsonify({"Error":"Field can not be blank", "status":0})
     
-    except Exception:
-        return jsonify({"Message":"Something went wrong Please check"})
+    account_type1 = request_data['account_type']
+    account_type = str(account_type1)
+    if not account_type:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    transaction_val = request_data['transaction_value']
+    transaction_value = int(transaction_val)
+    if not transaction_value:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    transaction_ref1 = request_data['transaction_ref']
+    transaction_ref = str(transaction_ref1)
+    if not transaction_ref:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    token1 = request_data['token']
+    token = str(token1)
+    if not token:
+        return jsonify({"Error":"Field can not be blank", "status":0})
+    
+    find_reg_id ={'account_number':account_number,
+                                'account_type':account_type,
+                                'transaction_value':transaction_value,
+                                'transaction_ref':transaction_ref,
+                                'token':token}
+    
+    q = transactions.find_one(find_reg_id) 
    
+    if q:
+        return jsonify({"Error":"Transaction has been save", "status":0})
+    else:
+        reg_id = transactions.insert_one(find_reg_id)
+
+    return jsonify({"Message": "Transaction has been saved", "status":1})
+
+# except Exception:
+#     return jsonify({"Message":"Something went wrong Please check"})
+
 
 
 
