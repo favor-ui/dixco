@@ -39,47 +39,8 @@ def get_all_transactions():
         return jsonify({"Message":"Something went wrong Please check"})
 
 
-@app.route('/disco_transaction/search', methods = ['GET'])
-# @jwt_required
-def get_one_disco_tran():
-    """To get one item from the database.its a Get request and We use the databasename.find_one"""
-    try:
-        transactions = mongo.db.transactions_
-        request_data = request.get_json()
-        name1 = request_data['name']
-        name2 = "_".join(name1.split())
-        name = name2.lower()
-    
-        r = transactions.find_one({'transaction_value': name})
 
-        if r:
-            output = []
-            output.append({
-                        'Account Number':r['account_number'],
-                        'Account Type':r['account_type'],
-                        'Transaction Value':r['transaction_value'],
-                        'Transaction Ref':r['transaction_ref'],
-                        'Token':r['token']
-                        })
-        else:
-            r = transactions.find_one({'token': name})
-
-            output = []
-
-            output.append({
-                    'Account Number':r['account_number'],
-                    'Account Type':r['account_type'],
-                    'Transaction Value':r['transaction_value'],
-                    'Transaction Ref':r['transaction_ref'],
-                    'Token':r['token']
-                        })
-                            
-        return jsonify({'result' : output})
-    
-    except Exception:
-        return jsonify({"Message":"Something went wrong Please check"})
-
-
+        
 @app.route('/disco_transaction', methods = ['POST'])
 # @jwt_required
 def register():
