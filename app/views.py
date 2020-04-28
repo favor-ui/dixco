@@ -50,7 +50,7 @@ def get_one_disco_tran():
         name2 = "_".join(name1.split())
         name = name2.lower()
     
-        r = transactions.find_one({'transaction_type': name})
+        r = transactions.find_one({'transaction_value': name})
 
         if r:
             output = []
@@ -86,6 +86,7 @@ def register():
     """To add an item to the database. its a post request and we use databasename.insert()"""
     try:
         transactions = mongo.db.transactions_
+        
         account_number1 = request.json['account_number']
         account_number= int(account_number1)
         if not account_number:
@@ -95,15 +96,17 @@ def register():
         account_type = str(account_type1)
         if not account_type:
             return jsonify({"Error":"Field can not be blank", "status":0})
-        
+       
         transaction_val1 = request.json['transaction_value']
         transaction_val = int(transaction_val1)
         if not transaction_val:
             return jsonify({"Error":"Field can not be blank", "status":0})
+       
         transaction_ref1 = request.json['transaction_ref']
         transaction_ref = str(transaction_ref)
         if not transaction_ref:
             return jsonify({"Error":"Field can not be blank", "status":0})
+        
         token1 = request.json['token']
         token = str(token1)
         if not token:
@@ -195,7 +198,6 @@ def method_not_allowed(error):
             "status": 500
         }
     )
-
 
 
 
