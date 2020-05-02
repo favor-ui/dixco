@@ -64,11 +64,7 @@ def register():
         transaction_ref_token = str(transaction_ref1)
         if not transaction_ref_token:
             return jsonify({"Error":"Field can not be blank", "status":0})
-        
-        token1 = request_data['token']
-        token = str(token1)
-        if not token:
-            return jsonify({"Error":"Field can not be blank", "status":0})
+    
         
         find_reg_id ={'account_number':account_number,
                                     'account_type':account_type,
